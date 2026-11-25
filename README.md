@@ -2,6 +2,33 @@
 [![Run on Brainlife.io](https://img.shields.io/badge/Brainlife-bl.app.191-blue.svg)](https://doi.org/10.25663/brainlife.app.191)
 
 # app-roi2roitracking
+
+<!-- brainlife-app:begin (generated from the App manifest; edit the manifest, not this block) -->
+
+**Segments a tractogram into tracts by keeping streamlines that connect user-specified pairs of ROIs from an ROI directory, using compiled MATLAB wma_tools, and outputs a white matter classification.**
+
+Runs the compiled wma_tools function bsc_SegROIfromPairStringList_v3 on the tractogram and the ROI directory: for each line of roiPairs it combines the listed ROIs into two endpoint regions (optionally inflated) and assigns to a tract the streamlines that connect them. Use it to extract specific connections from a whole-brain tractogram after generating ROIs. Needs a tractogram and ROIs in the same space. The surface-generation step in main reads an 'atlas' config key that this App does not provide.
+
+Run it on brainlife.io: [https://doi.org/10.25663/brainlife.app.191](https://doi.org/10.25663/brainlife.app.191)
+
+| Input | Datatype | Required | Description |
+|---|---|---|---|
+| `track` | `neuro/track/tck` | yes | Whole-brain tractogram (.tck) to segment. |
+| `ROI` | `neuro/rois` | yes | Directory of ROI NIfTI files whose numbers are referenced in roiPairs. Must be in the same space as the tractogram. |
+
+| Output | Datatype | Description |
+|---|---|---|
+| `classification` | `neuro/wmc` | White matter classification (classification.mat) with one tract per ROI pair. |
+
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `roiPairs` | string |  | Pairs of ROI sets to segment between: each line is one tract, with the two endpoint sets separated by ';' and each set listing atlas/ROI indices separated by spaces. |
+| `smoothKernel` | number | `1` | Odd whole-number kernel size used to smooth (inflate) each ROI with MATLAB smooth3 before segmentation; values above 1 inflate the ROI and 0 disables inflation. |
+
+Runtime: container `brainlife/mcr:neurodebian1604-r2017a`; 8 CPUs; 18 h walltime.
+
+<!-- brainlife-app:end -->
+
 This app will perform ensemble tracking between 2 or more cortical regions of interest (ROIs) from either a freesurfer parcellation or an atlas parcellation. First, the ROIs are registered to diffusion space using Freesurfer's mri_label2vol, and a white matter mask is generated in diffusion space, by running the create_wm_mask script. Then, tracking will be performed using mrtrix/0.2.12 by running the trackROI2ROI script. Finally, a classification structure will be generated using Vistasoft's bsc_mergeFGandClass and bsc_makeFGsFromClassification functions by running the classificationGenerator script.
 
 ### Authors
