@@ -10,9 +10,9 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-lightgrey.svg" alt="MIT license"></a>
 </p>
 
-> 📍 **This branch, `1.0`, is the brainlife.io App WMA Tract Segmentation with Atlas** ([doi:10.25663/brainlife.app.190](https://doi.org/10.25663/brainlife.app.190)). The other Apps in this repository are listed under **Versions on brainlife.io** below.
+> **This branch, `1.0`, is the brainlife.io App WMA Tract Segmentation with Atlas** ([doi:10.25663/brainlife.app.190](https://doi.org/10.25663/brainlife.app.190)). The other Apps in this repository are listed under **Versions on brainlife.io** below.
 
-## 🧠 At a glance
+## At a glance
 
 <!-- brainlife-app:begin (generated from the App manifest; edit the manifest, not this block) -->
 
@@ -22,27 +22,27 @@ Runs the compiled wma_tools function bsc_SegROIfromPairStringList_v2 on the trac
 
 | | |
 |---|---|
-| 📥 **Inputs** | `neuro/track/tck` · `neuro/parcellation/volume` |
-| 📤 **Outputs** | `neuro/wmc` |
-| 🐳 **Container** | `brainlife/mcr:neurodebian1604-r2017a` |
-| ⚙️ **Resources** | 8 CPUs · 18 h walltime |
-| 🔗 **Run it** | [doi.org/10.25663/brainlife.app.190](https://doi.org/10.25663/brainlife.app.190) |
+| **Inputs** | `neuro/track/tck` · `neuro/parcellation/volume` |
+| **Outputs** | `neuro/wmc` |
+| **Container** | `brainlife/mcr:neurodebian1604-r2017a` |
+| **Resources** | 8 CPUs · 18 h walltime |
+| **Run it** | [doi.org/10.25663/brainlife.app.190](https://doi.org/10.25663/brainlife.app.190) |
 
-#### 📥 Inputs
+#### Inputs
 
 | Input | Datatype | Required | Description |
 |---|---|---|---|
 | `track` | `neuro/track/tck` | yes | Whole-brain tractogram (.tck) to segment. |
 | `atlas` | `neuro/parcellation/volume` | yes | Volumetric atlas or parcellation (parc.nii.gz with its label key) whose integer indices are referenced in roiPairs. Must be in the same space as the tractogram. |
 
-#### 📤 Outputs
+#### Outputs
 
 | Output | Datatype | Description |
 |---|---|---|
 | `classification` | `neuro/wmc` | White matter classification (classification.mat) with one tract per ROI pair, plus atlas surfaces for visualisation. |
 
 <details>
-<summary><b>⚙️ Parameters</b> (2)</summary>
+<summary><b>Parameters</b> (2)</summary>
 
 | Parameter | Type | Default | Description |
 |---|---|---|---|
@@ -53,7 +53,7 @@ Runs the compiled wma_tools function bsc_SegROIfromPairStringList_v2 on the trac
 
 <!-- brainlife-app:end -->
 
-## 🏷️ Versions on brainlife.io
+## Versions on brainlife.io
 
 Each App is built from its own branch of this repository.
 
@@ -62,9 +62,9 @@ Each App is built from its own branch of this repository.
 | WMA Tract Segmentation with ROIs | a `neuro/rois` directory | [`master`](https://github.com/brainlife/app-segment-tracts-between-multiple-regions/tree/master) | [doi:10.25663/brainlife.app.191](https://doi.org/10.25663/brainlife.app.191) | current |
 | **WMA Tract Segmentation with Atlas** (this branch) | a `neuro/parcellation/volume` atlas | [`1.0`](https://github.com/brainlife/app-segment-tracts-between-multiple-regions/tree/1.0) | [doi:10.25663/brainlife.app.190](https://doi.org/10.25663/brainlife.app.190) | available |
 
-## 🚀 Running the App
+## Running the App
 
-### ☁️ On brainlife.io
+### On brainlife.io
 
 Open the App at [doi.org/10.25663/brainlife.app.191](https://doi.org/10.25663/brainlife.app.191), choose a whole-brain `neuro/track/tck` tractogram and a `neuro/rois` dataset in the same space, enter the region pairs and press **Execute**. The App runs the compiled [wma_tools](https://github.com/DanNBullock/wma_tools) function `bsc_SegROIfromPairStringList`: for each line of `roiPairs` it combines the listed ROIs into two endpoint regions and assigns to a tract the streamlines that connect them. The result is a `neuro/wmc` classification with one tract per line. Use it to extract specific connections from a whole-brain tractogram, for example after generating ROIs with the ROI Generator Apps.
 
@@ -73,7 +73,7 @@ Open the App at [doi.org/10.25663/brainlife.app.191](https://doi.org/10.25663/br
 
 The *Atlas* variant ([doi:10.25663/brainlife.app.190](https://doi.org/10.25663/brainlife.app.190)) takes the regions from the integer indices of a volumetric atlas and also generates VTK surfaces of the atlas regions for the viewer. Converting the atlas to ROIs and using the *ROIs* variant is recommended.
 
-### 💻 Locally
+### Locally
 
 You need [Singularity/Apptainer](https://apptainer.org/) and [`jq`](https://jqlang.github.io/jq/). The compiled MATLAB code runs inside the MATLAB Runtime R2017a container, and the surface step in a Python VTK container.
 
@@ -97,7 +97,7 @@ You need [Singularity/Apptainer](https://apptainer.org/) and [`jq`](https://jqla
    ./main
    ```
 
-## 📦 Outputs
+## Outputs
 
 ```text
 classification.mat   white matter classification: one tract per line of roiPairs
@@ -105,11 +105,11 @@ classification.mat   white matter classification: one tract per line of roiPairs
 
 The Atlas App also writes VTK surfaces of the atlas regions for visualisation.
 
-## 🩺 Troubleshooting
+## Troubleshooting
 
 - **Surface step with the ROIs App**: after segmentation, `main` generates surfaces from an `atlas` config key, which the ROIs App does not provide. If this step fails, check whether `classification.mat` was already produced by the segmentation step.
 
-## 📚 Citing
+## Citing
 
 > [!TIP]
 > If you use this App in your work, please cite the App, the software it builds on and brainlife.io (below). GitHub's **Cite this repository** button gives the App citation in APA and BibTeX.
@@ -119,7 +119,7 @@ The Atlas App also writes VTK surfaces of the atlas regions for visualisation.
 - Hayashi S, Caron BA, Heinsfeld AS, et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. *Nature Methods* 21:809–813 (2024). [doi:10.1038/s41592-024-02237-2](https://doi.org/10.1038/s41592-024-02237-2)
 - Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. *Scientific Data* 6:69 (2019). [doi:10.1038/s41597-019-0073-y](https://doi.org/10.1038/s41597-019-0073-y)
 
-## 👥 Authors
+## Authors
 
 - Dan Bullock
 - Brad Caron
@@ -128,7 +128,7 @@ The Atlas App also writes VTK surfaces of the atlas regions for visualisation.
 
 The App builds on [vistasoft](https://github.com/vistalab/vistasoft), [encode](https://github.com/brain-life/encode), [WMA](https://github.com/brain-life/wma) and [jsonlab](https://github.com/fangq/jsonlab).
 
-## 💰 Funding
+## Funding
 
 [![Wellcome-226486/Z/22/Z](https://img.shields.io/badge/Wellcome-226486%2FZ%2F22%2FZ-purple.svg)](https://wellcome.org/)
 [![NIH-NINDS-U24NS140384](https://img.shields.io/badge/NIH_NINDS-U24NS140384-green.svg)](https://reporter.nih.gov/project-details/11261037)
@@ -147,6 +147,6 @@ The App builds on [vistasoft](https://github.com/vistalab/vistasoft), [encode](h
 
 <sub>brainlife.io is publicly funded, and acknowledging that support helps keep it running. This App was developed with support from Wellcome, the U.S. National Institutes of Health (including the BRAIN Initiative BRAIN CONNECTS program: The Axonal Projectome EXchange, U24NS140384, and the Center for Mesoscale Connectomics, UM1NS132207) and the U.S. National Science Foundation.</sub>
 
-## ⚖️ License
+## License
 
 [MIT](LICENSE).
